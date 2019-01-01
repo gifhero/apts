@@ -1,0 +1,65 @@
+{% extends "main/header.html" %}
+{% load staticfiles%}
+{% block content %}
+
+<style>
+.tab-in{
+  margin-left:1em;
+}
+a.anchor {
+    display: block;
+    position: relative;
+    top: -85px;
+    visibility: hidden;
+}
+
+</style>
+{% for item in Earl46 %}
+<br />
+<div>
+	<a class="anchor" id="{{item.apartment_number}}"></a>
+	<h2 style="text-align:center">46 S Earl St, Apartment #{{item.apartment_number}}</h2>
+	<h3 style="text-align:center">
+		{% if item.is_available == 'Yes'%}
+			Available
+		{% else%}
+			Unavailable
+		{%endif%}
+		| {{item.number_of_bedrooms}} Bedroom | ${{item.rent_per_month}}/month
+
+	</h3>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h6><b>Information</b></h6>
+				<p class="tab-in">
+					Security Deposit: ${{item.rent_per_month}}<br />
+					Tenant Pays All Utilities<br />
+					Lease runs from June 1st to May 28th<br />
+					Maximum Occupancy: {{item.number_of_bedrooms}} persons<br />
+					No Pets Allowed<br />					
+				</p>
+				<h6><b>Features</b></h6>
+				<div class="tab-in">
+					{{item.features|linebreaks}}
+				</div>
+				<h6><b>Applicances</b></h6>
+				<div class="tab-in">
+					{{item.appliances|linebreaks}}
+				</div>
+			</div>
+			<div class="col">
+				<video width="500" controls>
+					<source src="{% static 'virtualWalkthrough/FirstAttempt.mp4' %}" type="video/mp4">
+					Your browser does not support HTML5 video.
+				</video><br />
+				<img src="{% static '/images/46_E_Earl_Front.JPG' %}" width=500">
+			</div>
+		</div>
+	</div>
+</div>
+</br>
+<hr />
+{% endfor %}
+
+{% endblock %}
